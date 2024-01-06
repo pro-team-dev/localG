@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 
 const Dashboard = () => {
   const handleItemClick = (item) => {
@@ -7,9 +13,14 @@ const Dashboard = () => {
   };
 
   return (
-    <View>
-      <Text>hello</Text>
-    </View>
+    <SafeAreaView>
+      <Text>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
+        perspiciatis inventore eum dolorem ipsum ea veritatis, facere
+        praesentium voluptates enim laudantium dolores! Consequuntur eius iste
+        pariatur ut molestias laudantium ex?
+      </Text>
+    </SafeAreaView>
   );
 };
 

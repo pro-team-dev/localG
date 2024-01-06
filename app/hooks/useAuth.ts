@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../authProvider";
+import { AuthContext } from "../providers/authProvider";
 import { router } from "expo-router";
 import { getData, getValueFor, save, saveData } from "../../utils/storage";
 
