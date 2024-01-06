@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native";
 import Intro from "./intro";
 import useAuth from "./hooks/useAuth";
 import {
+  Link,
   Stack,
   router,
   useNavigation,
@@ -56,6 +57,11 @@ const Index = () => {
           title="Tourist"
           style={{ borderRadius: 30, paddingVertical: 15, width: 200 }}
           onPress={handleSetUserType("Tourist")}
+        />
+        <CustomButton
+          title="Profile"
+          style={{ borderRadius: 30, paddingVertical: 15, width: 200 }}
+          onPress={() => router.replace("/profile")}
         />
       </View>
       <View className="absolute -bottom-[160px] -left-[720px] z-10">

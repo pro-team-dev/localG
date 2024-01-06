@@ -24,8 +24,9 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const { user, login } = useAuth();
+  const [checked, setChecked] = useState(false);
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     if (username === "" || password === "") {
       alert("Please fill in all fields");
       return;
@@ -60,7 +61,7 @@ export default function Signup() {
             logo="user"
             value={email}
             onChangeText={(text) => setEmail(text)}
-            placeholder="Username"
+            placeholder="Email"
           />
           <InputWithLogo
             logo="lock"
@@ -76,19 +77,30 @@ export default function Signup() {
             placeholder="Confirm Password"
             secureTextEntry={true}
           />
-          <View className="">
-            <View className="w-5 rounded-md mb-5">
-              <CheckBox color={Colors.primary["primary-0"]} />
+          <View className="flex-row justify-center mt-5">
+            <View className="w-5 rounded-md mb-5 mr-5">
+              <CheckBox
+                checked={checked}
+                onPress={() => setChecked(!checked)}
+                color={Colors.primary.btn}
+              />
             </View>
             <Text>I read & agree to the</Text>
+            <Text className="text-blue-500 font-bold ml-1">
+              terms & conditions
+            </Text>
           </View>
 
-          <CustomButton title="Create Account" onPress={handleLogin} />
+          <CustomButton
+            title="Create Account"
+            onPress={handleRegister}
+            style={{ width: 300, alignSelf: "center", borderRadius: 40 }}
+          />
 
-          <View className="flex-row items-center mt-1 mb-10 gap-3">
-            <Text className={"text-sm"}>I have an account?</Text>
+          <View className="flex-row items-center mb-10 gap-3 justify-center mt-5">
+            <Text className={"text-sm"}>Already have an account?</Text>
             <Link className="text-blue-500 font-bold" href={"/login"}>
-              Login here
+              Login
             </Link>
           </View>
         </View>
