@@ -21,7 +21,8 @@ const Index = () => {
   useEffect(() => {
     if (!isLoading) {
       if (user && rootNavigationState) {
-        router.replace("/home");
+        console.log(user);
+        router.replace("/(home)/");
       }
     }
   });
@@ -31,16 +32,9 @@ const Index = () => {
       router.replace("/signup");
     };
   };
-  // if (isLoading) {
-  //   return (
-  //     <View className="flex-1 justify-center items-center">
-  //       <ActivityIndicator size={"small"} />
-  //     </View>
-  //   );
-  // }
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-white">
       <View className="items-center z-20 mt-16">
         <Image className="" source={require("../assets/images/logo1.jpg")} />
       </View>

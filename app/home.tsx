@@ -6,14 +6,17 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import CustomButton from "../components/CustomButton";
+import useAuth from "./hooks/useAuth";
 
 const Dashboard = () => {
-  const handleItemClick = (item: any) => {
+  const { logout } = useAuth();
+  const handleItemClick = (item) => {
     alert(`Clicked on ${item}`);
   };
-
   return (
-    <SafeAreaView>
+    <SafeAreaView className="mt-10">
+      <CustomButton title="Logout" onPress={() => logout()} />
       <Text>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
         perspiciatis inventore eum dolorem ipsum ea veritatis, facere

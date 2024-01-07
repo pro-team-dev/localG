@@ -1,0 +1,29 @@
+import { create } from "zustand";
+
+type UserDataType = {
+  username: string;
+  email: string;
+  password: string;
+  fullname: string;
+  lastname: string;
+  profilePic: string;
+  citizenShipNo: string;
+};
+
+interface RegisterUserType extends UserDataType {
+  setInitialData: (username: string, password: string, email: string) => void;
+  setImage: (pp: string) => void;
+}
+
+export const useRegisterUser = create<RegisterUserType>((set) => ({
+  username: "",
+  email: "",
+  password: "",
+  fullname: "",
+  lastname: "",
+  profilePic: "",
+  citizenShipNo: "",
+  setInitialData: (username: string, password: string, email: string) =>
+    set((state) => ({ username, password, email })),
+  setImage: (pp: string) => set({ profilePic: pp }),
+}));

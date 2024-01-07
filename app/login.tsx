@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import InputWithLogo from "../components/InputWithLogo";
@@ -29,6 +30,16 @@ export default function LoginForm() {
 
   return (
     <KeyboardAvoidingView className="flex-1">
+      <View
+        className="items-center "
+        style={{ transform: [{ translateY: 100 }] }}
+      >
+        <Image
+          className="w-28 h-28 "
+          source={require("../assets/images/Logo.png")}
+        />
+        <Text className="text-2xl -mt-5">LocalG</Text>
+      </View>
       <View className={"p-4 mt-auto mb-auto mx-5"}>
         <Text className="text-3xl text-center -mt-5 mb-6 font-bold">LOGIN</Text>
         <InputWithLogo
@@ -46,7 +57,7 @@ export default function LoginForm() {
         />
         <View className="flex-row items-center mt-1 mb-10 gap-3">
           <Text className={"text-sm"}>Don't have an account?</Text>
-          <Link className="text-blue-500 font-bold" href={"/signup"}>
+          <Link className="text-blue-500 font-bold" href={"/"}>
             Register here
           </Link>
         </View>
