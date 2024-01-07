@@ -18,7 +18,7 @@ export default {
   },
   primary: {
     bg: "#B1DFCC",
-    "primary-2": "#5CA385",
+    btn: "#5CA385",
     "primary-0": "#277453",
     "primary-3": "#07462B",
     "primary-4": "#00170D",

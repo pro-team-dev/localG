@@ -12,6 +12,7 @@ import { AntDesign } from "@expo/vector-icons";
 import InputWithLogo from "../components/InputWithLogo";
 import useAuth from "./hooks/useAuth";
 import ImagePickerExample from "../components/CImagePicker";
+import CustomButton from "../components/CustomButton";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -37,7 +38,6 @@ export default function Signup() {
         <Text className="text-3xl text-center -mt-5 mb-6 font-bold">
           Register
         </Text>
-        <ImagePickerExample />
         <InputWithLogo
           logo="user"
           value={username}
@@ -64,12 +64,7 @@ export default function Signup() {
             Login here
           </Link>
         </View>
-        <TouchableOpacity
-          className={"bg-primary-btn py-2 px-4 rounded w-36 mx-auto"}
-          onPress={handleLogin}
-        >
-          <Text className={"text-white text-lg text-center"}>Login</Text>
-        </TouchableOpacity>
+        <CustomButton title="Register" handleLogin={handleLogin} />
       </View>
     </KeyboardAvoidingView>
   );

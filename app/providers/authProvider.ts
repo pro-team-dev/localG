@@ -1,4 +1,4 @@
-import { User } from "./_layout";
+import { User } from "../_layout";
 import { Dispatch, SetStateAction, createContext } from "react";
 
 export const AuthContext = createContext({
