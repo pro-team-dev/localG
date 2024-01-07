@@ -3,6 +3,6 @@ import { GlobalStoreContext } from "../providers/store";
 
 const useStore = () => {
   const { userType, setUserType } = useContext(GlobalStoreContext);
-  return [userType, setUserType];
+  return { userType, setUserType };
 };
 export default useStore;

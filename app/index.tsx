@@ -27,6 +27,7 @@ const Index = () => {
   const handleSetUserType = (type: userType) => {
     return function () {
       setUserType(type);
+      router.replace("/signup");
     };
   };
   // if (isLoading) {

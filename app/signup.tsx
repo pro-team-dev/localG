@@ -16,6 +16,7 @@ import ImagePickerExample from "../components/CImagePicker";
 import CustomButton from "../components/CustomButton";
 import { StatusBar, setStatusBarHidden } from "expo-status-bar";
 import { CheckBox } from "react-native-btr";
+import Colors from "../constants/Colors";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -75,8 +76,11 @@ export default function Signup() {
             placeholder="Confirm Password"
             secureTextEntry={true}
           />
-          <View>
-            <CheckBox />
+          <View className="">
+            <View className="w-5 rounded-md mb-5">
+              <CheckBox color={Colors.primary["primary-0"]} />
+            </View>
+            <Text>I read & agree to the</Text>
           </View>
 
           <CustomButton title="Create Account" onPress={handleLogin} />
