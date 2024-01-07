@@ -10,9 +10,12 @@ import {
   useRootNavigationState,
 } from "expo-router";
 import CustomButton from "../components/CustomButton";
+import useStore from "./hooks/useStore";
+import { userType } from "./providers/store";
 
 const Index = () => {
   const rootNavigationState = useRootNavigationState();
+  const { userType, setUserType } = useStore();
   const { isLoading, user, logout } = useAuth();
   useEffect(() => {
     if (!isLoading) {
@@ -21,8 +24,10 @@ const Index = () => {
       }
     }
   });
-  const handleSetUserType = () => {
-    router.replace("/signup");
+  const handleSetUserType = (type: userType) => {
+    return function () {
+      setUserType(type);
+    };
   };
   // if (isLoading) {
   //   return (
@@ -34,20 +39,22 @@ const Index = () => {
 
   return (
     <SafeAreaView className="flex-1">
-      <View className="items-center mt-16">
+      <View className="items-center z-20 mt-16">
         <Image className="" source={require("../assets/images/logo1.jpg")} />
       </View>
-      <Text className="text-2xl text-center mt-24">Whom do you want to be</Text>
+      <Text className="text-2xl z-20 text-center mt-24">
+        Whom do you want to be
+      </Text>
       <View className=" items-center gap-5 z-20 mt-6">
         <CustomButton
           title="GUIDE"
           style={{ borderRadius: 30, paddingVertical: 15, width: 200 }}
-          onPress={handleSetUserType}
+          onPress={handleSetUserType("Guide")}
         />
         <CustomButton
           title="Tourist"
           style={{ borderRadius: 30, paddingVertical: 15, width: 200 }}
-          onPress={handleSetUserType}
+          onPress={handleSetUserType("Tourist")}
         />
       </View>
       <View className="absolute -bottom-[160px] -left-[720px] z-10">

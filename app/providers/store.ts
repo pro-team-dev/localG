@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-type userType = "Tourist" | "Guide" | undefined;
+export type userType = "Tourist" | "Guide" | undefined;
 
-type storeType = {
+export type storeType = {
   userType: userType;
   setUserType: Dispatch<SetStateAction<"Tourist" | "Guide" | undefined>>;
 };
