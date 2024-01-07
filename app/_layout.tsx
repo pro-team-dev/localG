@@ -1,56 +1,49 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { View, Text } from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { Slot, Stack, useRootNavigationState } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { getData, getValueFor } from "../utils/storage";
+import { AuthContext } from "./authProvider";
+import Intro from "./intro";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+export type User = { username: string; email: string };
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
+const RootLayout = () => {
+  const rootNavigationState = useRootNavigationState();
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [user, setUser] = useState<User>();
 
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
+  const checkLoginCredentials = async () => {
+    try {
+      const userData = await getData("user");
+      if (userData) {
+        setUser(userData as User);
+      } else {
+        setUser(undefined);
+      }
+      setAppIsReady(true);
       SplashScreen.hideAsync();
+    } catch (error) {
+      console.error(error);
     }
-  }, [loaded]);
+  };
 
-  if (!loaded) {
-    return null;
-  }
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      await checkLoginCredentials();
+      // Perform navigation actions here, after the component is fully mounted.
+      // For example, you can use the navigation prop if available.
+    };
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+    fetchData();
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Slot />
+    </AuthContext.Provider>
   );
-}
+};
+
+export default RootLayout;
