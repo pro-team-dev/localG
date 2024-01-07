@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 const Dashboard = () => {
-  const handleItemClick = (item) => {
+  const handleItemClick = (item: any) => {
     alert(`Clicked on ${item}`);
   };
 
