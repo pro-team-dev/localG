@@ -1,21 +1,26 @@
 import { View, Text, StyleProp, ViewStyle, StyleSheet } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import * as COLORS from "../constants/Colors";
+import Colors, * as COLORS from "../constants/Colors";
 
 type CustomButtonType = {
   onPress?: () => void;
   title: string;
   type?: string;
   style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 };
 
 const CustomButton = (props: CustomButtonType) => {
   return (
     <View>
       <TouchableOpacity
-        style={[styles.btn, props.style ? props.style : {}]}
-        onPress={props.onPress}
+        style={[
+          styles.btn,
+          props.style ? props.style : {},
+          props.disabled ? { backgroundColor: Colors.primary.bg } : {},
+        ]}
+        onPress={props.disabled ? undefined : props.onPress}
       >
         <Text className={"text-white text-lg text-center"}>{props.title}</Text>
       </TouchableOpacity>

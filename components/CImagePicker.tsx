@@ -10,8 +10,13 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
-export default function UploadImage() {
-  const [image, setImage] = useState<string | null>(null);
+type ImageUploaderProps = {
+  image: string | null;
+  setImage: React.Dispatch<React.SetStateAction<string | null>>;
+};
+
+export default function UploadImage(props: ImageUploaderProps) {
+  const { image, setImage } = props;
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

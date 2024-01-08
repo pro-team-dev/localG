@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Slot, Stack, useRootNavigationState } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -19,7 +19,19 @@ const RootLayout = () => {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <GlobalStoreContext.Provider value={{ userType, setUserType }}>
-        <Slot />
+        <SafeAreaView className="flex-1">
+          {/* <Slot /> */}
+          <Stack initialRouteName="login">
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="signup" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="touristExtraPage"
+              options={{ headerShown: false, presentation: "modal" }}
+            />
+            <Stack.Screen name="(home)" options={{ headerShown: false }} />
+          </Stack>
+        </SafeAreaView>
       </GlobalStoreContext.Provider>
     </AuthContext.Provider>
   );

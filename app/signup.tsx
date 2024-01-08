@@ -17,6 +17,8 @@ import CustomButton from "../components/CustomButton";
 import { StatusBar, setStatusBarHidden } from "expo-status-bar";
 import { CheckBox } from "react-native-btr";
 import Colors from "../constants/Colors";
+import useStore from "./hooks/useStore";
+import { useRegisterUser } from "./globalStore/globalStore";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -25,6 +27,8 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const { user, login } = useAuth();
   const [checked, setChecked] = useState(false);
+  const { userType } = useStore();
+  const setInitialData = useRegisterUser((state) => state.setInitialData);
 
   const handleRegister = () => {
     if (username === "" || password === "") {
@@ -35,12 +39,15 @@ export default function Signup() {
       alert("Password doesnot match");
       return;
     }
-    login(username, password);
+    if (userType == "Guide") {
+      setInitialData(username, password, email);
+      router.push("/touristExtraPage");
+    }
   };
 
   return (
     <>
-      <KeyboardAvoidingView className="flex-1">
+      <KeyboardAvoidingView className="flex-1 bg-white">
         <View>
           <Image
             className="absolute -top-[290px] -left-[250px]"
@@ -77,22 +84,9 @@ export default function Signup() {
             placeholder="Confirm Password"
             secureTextEntry={true}
           />
-          <View className="flex-row justify-center mt-5">
-            <View className="w-5 rounded-md mb-5 mr-5">
-              <CheckBox
-                checked={checked}
-                onPress={() => setChecked(!checked)}
-                color={Colors.primary.btn}
-              />
-            </View>
-            <Text>I read & agree to the</Text>
-            <Text className="text-blue-500 font-bold ml-1">
-              terms & conditions
-            </Text>
-          </View>
 
           <CustomButton
-            title="Create Account"
+            title={userType == "Guide" ? "Next" : "Register Here"}
             onPress={handleRegister}
             style={{ width: 300, alignSelf: "center", borderRadius: 40 }}
           />

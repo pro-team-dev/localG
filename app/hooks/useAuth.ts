@@ -6,63 +6,92 @@ import { getData, getValueFor, save, saveData } from "../../utils/storage";
 const useAuth = () => {
   const { user, setUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [jwtToken, setJwtToken] = useState<string | undefined>();
+  const [jwtToken, setJwtToken] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>();
+
   const login = async (username: string, password: string) => {
-    setIsLoading(true);
-    setJwtToken("dfdfdfd");
-    setUser({ username, email: "" });
-    await save("token", "dfdfdfd");
-    await saveData("userInfo", { username, email: "" });
-    setIsLoading(false);
-    router.replace("/home");
+    try {
+      setIsLoading(true);
+      const authToken = "dfdfdfd";
+      setUser({ username, email: "" });
+      setJwtToken(authToken);
+      await save("token", authToken);
+      await saveData("userInfo", { username, email: "" });
+      setIsLoading(false);
+      router.push("/(home)/");
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Login failed. Please try again.");
+      setIsLoading(false);
+    }
   };
 
-  const signin = (username: string, password: string) => {
-    if (username === "" || password === "") {
-      alert("Please fill in all fields");
-      return;
+  const signin = async (username: string, password: string) => {
+    try {
+      if (username === "" || password === "") {
+        throw new Error("Please fill in all fields");
+      }
+
+      setUser({ username, email: "" });
+      const authToken = "dfdfdfd";
+      setJwtToken(authToken);
+      await save("token", authToken);
+      await saveData("userInfo", { username, email: "" });
+      router.push("/(home)/");
+    } catch (error) {
+      console.error("Signin error:", error);
+      setError("Signin failed. Please check your credentials.");
     }
-    setUser({ username, email: "" });
-    alert("Signin successful");
-    router.replace("/home");
   };
 
   const logout = async () => {
-    setIsLoading(true);
-    setJwtToken(undefined);
-    setUser(undefined);
-    await save("token", "");
-    await saveData("userInfo", "");
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      setJwtToken(undefined);
+      setUser(undefined);
+      await save("token", "");
+      await saveData("userInfo", "");
+      setIsLoading(false);
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setError("Logout failed. Please try again.");
+    }
   };
 
   const isLoggedIn = async () => {
     try {
       setIsLoading(true);
-      let userToken = await getValueFor("token");
-      let userInfo = await getData("userInfo");
-      // console.log(userToken, ":", userInfo);
-      if (!userToken?.length || !userInfo?.length) {
+      const userToken = await getValueFor("token");
+      const userInfo = await getData("userInfo");
+
+      if (!userToken || !userInfo) {
         setIsLoading(false);
         return;
       }
+
       setUser(userInfo);
       setJwtToken(userToken);
       setIsLoading(false);
-    } catch (e) {
+    } catch (error) {
+      console.error("IsLoggedIn error:", error);
+      setError("Error checking login status.");
       setIsLoading(false);
-      console.log("error: ", e);
     }
   };
+
   useEffect(() => {
     isLoggedIn();
-  });
+  }, []);
+
   return {
     user,
     login,
     signin,
     logout,
     isLoading,
+    error,
+    clearError: () => setError(undefined),
   };
 };
 
