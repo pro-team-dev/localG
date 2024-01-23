@@ -27,3 +27,17 @@ export const useRegisterUser = create<RegisterUserType>((set) => ({
     set((state) => ({ username, password, email })),
   setImage: (pp: string) => set({ profilePic: pp }),
 }));
+
+type userImageType = {
+  coverImage: string;
+  setCoverImage: (pp: string) => void;
+  profilePic: string;
+  setProfilePic: (pp: string) => void;
+};
+
+export const useUserImage = create<userImageType>((set) => ({
+  coverImage: "",
+  setCoverImage: (pp: string) => set({ coverImage: pp }),
+  profilePic: "",
+  setProfilePic: (pp: string) => set({ profilePic: pp }),
+}));

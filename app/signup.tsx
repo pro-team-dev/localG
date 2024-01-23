@@ -25,7 +25,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
-  const { user, login } = useAuth();
+  const { user, login, signin } = useAuth();
   const [checked, setChecked] = useState(false);
   const { userType } = useStore();
   const setInitialData = useRegisterUser((state) => state.setInitialData);
@@ -42,6 +42,9 @@ export default function Signup() {
     if (userType == "Guide") {
       setInitialData(username, password, email);
       router.push("/touristExtraPage");
+    } else if (userType == "Tourist") {
+      signin(username, password);
+      router.push("/home");
     }
   };
 

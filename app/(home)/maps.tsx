@@ -1,10 +1,11 @@
 import { View, Text } from "react-native";
 import React from "react";
+import MapsComponent from "../../components/mapsComponent";
 
 const Maps = () => {
   return (
     <View>
-      <Text>Maps</Text>
+      <MapsComponent />
     </View>
   );
 };

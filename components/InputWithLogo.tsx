@@ -8,7 +8,15 @@ type InputWithLogoType = {
 
 const InputWithLogo = (props: InputWithLogoType) => {
   return (
-    <View className="flex-row items-center my-4">
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 4,
+        backgroundColor: "white",
+      }}
+    >
       <AntDesign color={"green"} size={20} name={props.logo} />
       <TextInput
         className={
